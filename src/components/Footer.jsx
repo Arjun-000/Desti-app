@@ -11,7 +11,7 @@ const Footer = () => {
           <div style={{width:'400px'}}>
             <h5><i class="fa-solid fa-plane-departure me-2"></i>
             Desti</h5>
-            <p>Designed and built with all the love in the world by the Luminar team with the help of our contributors.</p>
+            <p>Designed and built with all the love in the world by Arjun R.</p>
             <p>Code licensed MIT, docs CC BY 3.0.</p>
             <p>Currently v5.3.3.</p>
           </div>
@@ -50,7 +50,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <p className='text-center mt-3'>Copyright &copy; May 2024 Batch, Media Player. Built with React.</p>
+        <p className='text-center mt-3'>Copyright &copy; Arjun, Desti. Built with React.</p>
       </div>
     </div>
     </>
