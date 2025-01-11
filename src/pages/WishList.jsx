@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getDestinationInWishlistAPI , getDestinationByIdWishlistAPI , deleteDestinationFromWishlistAPI , deleteDestinationFromWishlistToAddVisitedAPI } from '../services/allAPI';
-
+import Header from '../components/Header'
 
 const WishList = () => {
   const [wishlistDestinations, setWishlistDestinations] = useState([]); 
@@ -89,6 +89,8 @@ const WishList = () => {
       
 
   return (
+    <>
+       <Header outsideHome={true}/>
     <div style={{paddingTop:'100px'}} className='container-fluid'>
         <h1>Wishlist</h1>
         <div className="row container mt-4">
@@ -160,6 +162,7 @@ const WishList = () => {
       </Modal>
 
     </div>
+    </>
   )
 }
 
