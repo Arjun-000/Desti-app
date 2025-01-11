@@ -7,6 +7,7 @@ import {
   deleteDestinationFromVisitedToAddWishlistAPI
 
 } from "../services/allAPI";
+import Header from '../components/Header'
 
 const Visited = () => {
   const [visitedDestinations, setVisitedDestinations] = useState([]);
@@ -80,6 +81,8 @@ const Visited = () => {
   
 
   return (
+    <>
+    <Header outsideHome={true}/>
     <div style={{ paddingTop: "100px" }} className="container-fluid">
       <h1>Visited Destinations</h1>
       <div className="row container mt-4">
@@ -150,6 +153,7 @@ const Visited = () => {
         </Modal.Footer>
       </Modal>
     </div>
+    </>
   );
 };
 
