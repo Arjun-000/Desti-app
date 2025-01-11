@@ -7,6 +7,7 @@ import {
   deleteDestinationFromVisitedToAddWishlistAPI
 
 } from "../services/allAPI";
+import Header from '../components/Header'
 
 const Visited = () => {
   const [visitedDestinations, setVisitedDestinations] = useState([]);
@@ -80,76 +81,80 @@ const Visited = () => {
   
 
   return (
-    <div style={{ paddingTop: "100px" }} className="container-fluid">
-      <h1>Visited Destinations</h1>
-      <div className="row container mt-4">
-        {visitedDestinations?.length > 0 ? (
-          visitedDestinations.map((destination) => (
-            <div className="col-md-4" key={destination.id}>
-              <Card style={{ width: "28rem" }}>
-                <Card.Body>
-                  <img
-                    src={destination.destinationImage}
-                    alt="No image"
-                    width={"100%"}
-                    onClick={() => handleShowDetails(destination.id)}
-                    style={{ cursor: "pointer" }}
-                  />
-                  <Card.Title>{destination.destinationName}</Card.Title>
-                  <div className="d-flex justify-content-between">
-                    <button onClick={() => removeDestinationFromVisited(destination.id)} className="text-danger border-0 bg-transparent btn">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                    <Button onClick={()=>moveToWishlistFromVisited(destination.id)} variant="success">Wishlist</Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </div>
-          ))
-        ) : (
-          <div className="justify-content-center align-items-center d-flex">
-            <h1>No destinations in visited list</h1>
-          </div>
-        )}
-      </div>
-
-      {/* Modal for Destination Details */}
-      <Modal show={show} onHide={handleClose} size="lg" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Destination Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedDestination ? (
-            <div>
-              <img
-                src={selectedDestination.destinationImage}
-                alt="Destination"
-                width="100%"
-              />
-              <h4>{selectedDestination.destinationName}</h4>
-              <p>{selectedDestination.destinationDescription}</p>
-              <p>
-                <strong>Pinterest:</strong>{" "}
-                <a
-                  href={selectedDestination.pinterest}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on Pinterest
-                </a>
-              </p>
-            </div>
+    <>
+    <Header outsideHome={true}/>
+      <div style={{ paddingTop: "100px" }} className="container-fluid">
+        <h1>Visited Destinations</h1>
+        <div className="row container mt-4">
+          {visitedDestinations?.length > 0 ? (
+            visitedDestinations.map((destination) => (
+              <div className="col-md-4" key={destination.id}>
+                <Card style={{ width: "28rem" }}>
+                  <Card.Body>
+                    <img
+                      src={destination.destinationImage}
+                      alt="No image"
+                      width={"100%"}
+                      onClick={() => handleShowDetails(destination.id)}
+                      style={{ cursor: "pointer" }}
+                    />
+                    <Card.Title>{destination.destinationName}</Card.Title>
+                    <div className="d-flex justify-content-between">
+                      <button onClick={() => removeDestinationFromVisited(destination.id)} className="text-danger border-0 bg-transparent btn">
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                      <Button onClick={()=>moveToWishlistFromVisited(destination.id)} variant="success">Wishlist</Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
+            ))
           ) : (
-            <p>Loading...</p>
+            <div className="justify-content-center align-items-center d-flex">
+              <h1>No destinations in visited list</h1>
+            </div>
           )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+        </div>
+  
+        {/* Modal for Destination Details */}
+        <Modal show={show} onHide={handleClose} size="lg" centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Destination Details</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {selectedDestination ? (
+              <div>
+                <img
+                  src={selectedDestination.destinationImage}
+                  alt="Destination"
+                  width="100%"
+                />
+                <h4>{selectedDestination.destinationName}</h4>
+                <p>{selectedDestination.destinationDescription}</p>
+                <p>
+                  <strong>Pinterest:</strong>{" "}
+                  <a
+                    href={selectedDestination.pinterest}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View on Pinterest
+                  </a>
+                </p>
+              </div>
+            ) : (
+              <p>Loading...</p>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </>
+   
   );
 };
 
