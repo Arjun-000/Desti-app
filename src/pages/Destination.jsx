@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import DestinationCard from '../components/DestinationCard';
-import AddDestination from '../components/AddDestination';
-import Header from '../components/Header';
-import { getDestinationAPI } from '../services/allAPI';
+import React from 'react'
+import DestinationCard from '../components/DestinationCard'
+import AddDestination from '../components/AddDestination'
+
 
 const Destination = () => {
   const [allDestinations, setAllDestinations] = useState([]);
@@ -25,20 +24,14 @@ const Destination = () => {
   };
 
   return (
-    <>
-      <Header outsideHome={true} />
-      <div style={{ paddingTop: '100px' }} className="container-fluid">
-        <div className="d-flex justify-content-between pe-5">
+    <div style={{paddingTop:'100px'}} className='container-fluid'>
+        <div className='d-flex justify-content-between pe-5'>
           <h1>Destinations</h1>
           <AddDestination refreshDestinations={fetchDestinations} />
         </div>
-        <DestinationCard
-          allDestinations={allDestinations}
-          refreshDestinations={fetchDestinations}
-        />
-      </div>
-    </>
-  );
-};
+        <DestinationCard/>
+    </div>
+  )
+}
 
-export default Destination;
+export default Destination
