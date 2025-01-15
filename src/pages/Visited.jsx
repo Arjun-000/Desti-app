@@ -88,7 +88,7 @@ const Visited = () => {
       <div className="row container mt-4">
         {visitedDestinations?.length > 0 ? (
           visitedDestinations.map((destination) => (
-            <div className="col-md-4" key={destination.id}>
+            <div className="col-md-4 mx-2" key={destination.id}>
               <Card style={{ width: "28rem" }}>
                 <Card.Body>
                   <img

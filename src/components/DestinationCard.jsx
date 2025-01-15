@@ -44,7 +44,7 @@ const DestinationCard = ({ allDestinations, refreshDestinations }) => {
       {allDestinations.length > 0 ? (
         allDestinations.map((destination) => (
           <div className="col-md-4 mb-4" key={destination.id}>
-            <Card>
+            <Card style={{ width: "28rem" }}>
               <Card.Img
                 variant="top"
                 src={destination.destinationImage}
@@ -52,6 +52,7 @@ const DestinationCard = ({ allDestinations, refreshDestinations }) => {
                   setSelectedDestination(destination);
                   setShow(true);
                 }}
+                width={"100%"}
               />
               <Card.Body>
                 <Card.Title>{destination.destinationName}</Card.Title>
