@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
-import { getDestinationAPI, saveDestinationAPI } from "../services/allAPI";
+import React, { useState } from 'react';
+import { Button, Modal, Form, FloatingLabel } from 'react-bootstrap';
+import { saveDestinationAPI } from '../services/allAPI';
 
-
-const AddDestination = () => {
-  const [invalidPinterestLink, setInvalidPinterestLink] = useState(false);
+const AddDestination = ({ refreshDestinations }) => {
   const [destinationDetails, setDestinationDetails] = useState({
-    destinationName: "",
-    destinationDescription: "",
-    destinationImage: "",
-    pinterest: "",
+    destinationName: '',
+    destinationDescription: '',
+    destinationImage: '',
+    pinterest: '',
   });
 
   const [show, setShow] = useState(false);
@@ -19,131 +17,108 @@ const AddDestination = () => {
 
   const handleAddDestination = async () => {
     const { destinationName, destinationDescription, destinationImage, pinterest } = destinationDetails;
-  
+
     if (destinationName && destinationDescription && destinationImage) {
       try {
-        // Generate Pinterest link if not provided
         if (!pinterest) {
-          const pinterestBaseURL = "https://in.pinterest.com/search/pins/?q=";
+          const pinterestBaseURL = 'https://in.pinterest.com/search/pins/?q=';
           const generatedLink = `${pinterestBaseURL}${destinationName
             .toLowerCase()
-            .replace(/ /g, "%20")}&rs=typed`;
+            .replace(/ /g, '%20')}&rs=typed`;
           destinationDetails.pinterest = generatedLink;
         }
-  
+
         const result = await saveDestinationAPI(destinationDetails);
-        console.log(result);
-        
+
         if (result.status >= 200 && result.status < 300) {
-          alert("Destination Added Successfully!");
-          console.log(result);
+          alert('Destination Added Successfully!');
           handleClose();
+          refreshDestinations();
         } else {
-          console.log("Error:", result);
+          console.error('Error:', result);
         }
       } catch (err) {
-        console.error("Error occurred:", err);
+        console.error('Error occurred:', err);
       }
     } else {
-      alert("Please fill all the mandatory fields!");
+      alert('Please fill all the mandatory fields!');
     }
   };
 
-
   return (
-    <div>
-      {/* Modal to Add Destinations */}
+    <>
       <Button variant="primary" onClick={handleShow}>
-        Add Destinations
+        Add Destination
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Destination!!!</Modal.Title>
+          <Modal.Title>Add Destination</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="border rounded p-3">
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Destination Name"
-              className="mb-3"
-            >
-              <Form.Control
-                onChange={(e) =>
-                  setDestinationDetails({
-                    ...destinationDetails,
-                    destinationName: e.target.value,
-                  })
-                }
-                type="text"
-                placeholder="Enter Destination Name..."
-              />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Destination Description"
-              className="mb-3"
-            >
-              <Form.Control
-                onChange={(e) =>
-                  setDestinationDetails({
-                    ...destinationDetails,
-                    destinationDescription: e.target.value,
-                  })
-                }
-                type="text"
-                placeholder="Enter Destination Description..."
-              />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Destination Image URL"
-              className="mb-3"
-            >
-              <Form.Control
-                onChange={(e) =>
-                  setDestinationDetails({
-                    ...destinationDetails,
-                    destinationImage: e.target.value,
-                  })
-                }
-                type="text"
-                placeholder="Enter Destination Image URL..."
-              />
-            </FloatingLabel>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Destination Pinterest URL (optional)"
-              className="mb-3"
-            >
-              <Form.Control
-                onChange={(e) =>
-                  setDestinationDetails({
-                    ...destinationDetails,
-                    pinterest: e.target.value,
-                  })
-                }
-                type="text"
-                placeholder="Enter Destination Pinterest URL..."
-              />
-            </FloatingLabel>
-            {invalidPinterestLink && (
-              <div className="text-danger fw-bolder">
-                Invalid Pinterest Link. Please provide a valid link.
-              </div>
-            )}
-          </div>
+          <FloatingLabel label="Destination Name" className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Enter Destination Name"
+              value={destinationDetails.destinationName}
+              onChange={(e) =>
+                setDestinationDetails({
+                  ...destinationDetails,
+                  destinationName: e.target.value,
+                })
+              }
+            />
+          </FloatingLabel>
+          <FloatingLabel label="Destination Description" className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Enter Destination Description"
+              value={destinationDetails.destinationDescription}
+              onChange={(e) =>
+                setDestinationDetails({
+                  ...destinationDetails,
+                  destinationDescription: e.target.value,
+                })
+              }
+            />
+          </FloatingLabel>
+          <FloatingLabel label="Destination Image URL" className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Enter Destination Image URL"
+              value={destinationDetails.destinationImage}
+              onChange={(e) =>
+                setDestinationDetails({
+                  ...destinationDetails,
+                  destinationImage: e.target.value,
+                })
+              }
+            />
+          </FloatingLabel>
+          <FloatingLabel label="Pinterest URL (optional)" className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Enter Pinterest URL"
+              value={destinationDetails.pinterest}
+              onChange={(e) =>
+                setDestinationDetails({
+                  ...destinationDetails,
+                  pinterest: e.target.value,
+                })
+              }
+            />
+          </FloatingLabel>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button onClick={handleAddDestination} variant="primary">
-            Add
+          <Button variant="primary" onClick={handleAddDestination}>
+            Add Destination
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 };
 

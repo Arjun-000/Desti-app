@@ -3,7 +3,7 @@ import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
 
 import { Link } from 'react-router-dom'
 
-const Header = ({outsideHome}) => {
+const Header = () => {
   return (
     <>
         <Navbar expand="lg" className='fixed-top bg-dark'>
@@ -22,9 +22,7 @@ const Header = ({outsideHome}) => {
             <Nav.Link href="#action3" className='text-white fw-bolder'><Link className='text-white text-decoration-none' to={'/Wishlist'}>Wishlist</Link></Nav.Link>
 
           </Nav>
-          {
-            outsideHome &&
-            <Form className="d-flex ms-5 me-2">
+          <Form className="d-flex ms-5 me-2">
             <Form.Control
               type="search"
               placeholder="Search destination..."
@@ -32,7 +30,7 @@ const Header = ({outsideHome}) => {
               aria-label="Search"
             />
             <Button variant="success">Search</Button>
-          </Form>}
+          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
